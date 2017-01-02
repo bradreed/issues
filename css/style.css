@@ -13,3 +13,19 @@ body {
     font-size: 24px;
     font-weight: bold;
   }
+  #issue-creator-form{
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    position: relative !important;
+    clear: both !important;
+  }
+#issue-creator-form input, #issue-creator-form textarea{
+    width: 100% !important;
+    display: block !important;
+    margin-bottom: 20px !important;
+    color: #000 !important;
+  }
+#wpadminbar .quicklinks #wp-admin-bar-issues_form.menupop.hover ul li .ab-item{
+    height: 100% !important;
+  }

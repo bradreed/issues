@@ -24,3 +24,38 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 */
+
+function issues_form() {
+    global $wp_admin_bar, $wpdb;
+
+    if ( !is_super_admin() || !is_admin_bar_showing() )
+        return;
+    $page_ID = get_the_ID();
+    $issue_form = '
+	<form action="#" id="issue-creator-form">
+		<input id="issue-title" type="text" name="Issue Title" class="adminbar-input"  value="' . __( 'Issue Title', 'textdomain' ) . '">
+		<textarea name="Issue Description" class="adminbar-input" id="issue-description" cols="30" rows="10"></textarea>
+        <button class="adminbar-button">
+            <span>Go</span>
+        </button>
+        <p>The page ID is: '. $page_ID .'</p>
+    </form>
+
+';
+
+
+    /* Add the main siteadmin menu item */
+    $wp_admin_bar->add_menu( array( 'id' => 'issues_form', 'title' => __( 'Create an Issue', 'textdomain' ), 'href' => FALSE ) );
+    $wp_admin_bar->add_menu( array( 'parent' => 'issues_form', 'title' => $issue_form, 'href' => FALSE ) );
+}
+function registerStyles(){
+    $stylesheet = get_bloginfo('url') . '/wp-content/plugins/issues/css/style.css';
+    //print_r($stylesheet);
+    wp_register_style('issues', $stylesheet);
+    //wp_enqueue_style('issues');
+    $test = '<script>console.log("test"); </script>';
+    echo $test;
+}
+add_action( 'admin_bar_menu', 'registerStyles');
+add_action( 'admin_enqueue_scripts', 'registerStyles');
+add_action( 'admin_bar_menu', 'issues_form', 1000 );
